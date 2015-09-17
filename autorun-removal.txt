@@ -1,0 +1,32 @@
+/* Command line details: Here atrib=attribute, "-"=remove attribute/permits, h=hidden s=system, r=read-only, a=archive, /s=sub directory, /d=directory, drive_letter=the letter of the drive shown in windows explorer (e.g. j:,h: or D:) and *.* is called the wild card for all files. */
+cmd 
+attrib -s -h -r h:\autorun.inf
+attrib -s -h -r h:\copy.exe
+attrib -s -h -r h:\ntdeiect.com
+
+del h:\autorun.inf
+del h:\copy.exe 
+del h:\ntdeiect.com 
+
+attrib -s -h -r c:\windows\system32\kavo.exe
+del c:\windows\system32\kavo.exe
+
+@echo off 
+attrib -h -s -r -a /s /d D:\*.*
+attrib -h -s -r -a /s /d E:\*.*
+attrib -h -s -r -a /s /d F:\*.*
+attrib -h -s -r -a /s /d G:\*.*
+attrib -h -s -r -a /s /d H:\*.*
+attrib -h -s -r -a /s /d I:\*.*
+attrib -h -s -r -a /s /d J:\*.*
+@echo complete
+
+start >> run >> regedit >> ok
+	+HKEY_LOCAL_MACHINE
+	+SOFTWARE
+	+Microsoft
+	+Windows 
+	+CurrentVersion
+	+Run 
+	
+	delete with right click -> c:\windows\system32\kavo.exe
