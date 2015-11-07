@@ -1,0 +1,17 @@
+.*.swp
+*~
+pom.xml
+build
+target
+lib
+bin
+classes
+*.jar
+*.log
+.cake
+.lein*
+pom.xml.asc
+/.classpath
+/.project
+/.settings
+.nrepl-port
