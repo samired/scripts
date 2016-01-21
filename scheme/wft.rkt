@@ -2,12 +2,12 @@
 (require (planet neil/csv:2:0))
 (require srfi/1)
 
-(define comp (csv->list (open-input-file "competency10.csv")))
-(define trn (csv->list (open-input-file "training8.csv")))
+(define comp (csv->list (open-input-file "C:/Users/SamirM1/Desktop/competency2016-01-18.csv")))
+;(define trn (csv->list (open-input-file "training8.csv")))
 
 (car comp)
-(car trn)
-(length trn)
+;(car trn)
+;(length trn)
 
 (head comp)
 
