@@ -1,6 +1,6 @@
  #!/bin/bash -e
-commit_message="$1"
+commit_message= date
 git add . -A
 git commit -m "$commit_message"
-git push
+git push m
  
