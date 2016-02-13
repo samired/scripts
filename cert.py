@@ -10,15 +10,15 @@ font1 = ImageFont.truetype("filt.ttf", 25)
 font2 = ImageFont.truetype("filt.ttf", 26)
 font3 = ImageFont.truetype("micross.ttf", 15)
 
-course_name = "Oilfield Familiarization - Summer Training"
+course_name = "Oilfield Familiarization"
 course_date = "17 - 21 August 2014 - Cairo"
 
 last_serial = 26
 
-attendees = ['Ahmed Ali Dahish', 'Ahmed Fawzy Sharabi']
+attendees = ['Ahmed Ali Dahish', 'Ahmed Fawzy Sharabi', 'Ahmed Ismaeil Atito', 'Ahmed Muhammad Fawzy', 'Ahmed Osama Alghareb', 'Ayman Abd-Allah Moawad', 'Hebatullah Sayed Abdel Salam', 'Hossam Hossny Ahmed']
 
 for attendee in attendees:
-	img = Image.open("test.jpg")
+	img = Image.open("cert.jpg")
 	draw = ImageDraw.Draw(img)
 
 	draw.text((440, 859./2),attendee,(70,70,70),font=font1)
