@@ -1,0 +1,195 @@
+<a border="0" href="http://incanter.org" ><img src="http://incanter.org/incanter-banner.png" alt="Incanter" /></a>
+
+<a border="0" href="https://travis-ci.org/incanter/incanter" > <img src="https://secure.travis-ci.org/incanter/incanter.png" alt="Incanter" /></a>
+
+* <a href="#overview">Overview</a>
+* <a href="#clojure">Getting started with Clojure</a>
+* <a href="#getstarted">Getting started with Incanter</a>
+** <a href="#include-in-clojure-project">Include in Clojure project</a>
+** <a href="#use-standalone-app">Use standalone app</a>
+** <a href="#usage">Usage</a>
+* <a href="#docs">Documentation and examples</a>
+* <a href="#build">Building Incanter</a>
+* <a href="#depends">Dependencies</a>
+
+<a name="overview"></a>
+
+h2. Overview and motivation
+
+<a href="http://incanter.org">_Incanter</a> is a <a href="http://clojure.org">Clojure</a>-based, <a href="http://www.r-project.org/">R</a>-like statistical computing and graphics environment for the JVM._  At the core of Incanter are the <a href="http://sites.google.com/site/piotrwendykier/software/parallelcolt">Parallel Colt</a> numerics library, a multithreaded version of <a href="http://acs.lbl.gov/~hoschek/colt/">Colt</a>, and the <a href="http://www.jfree.org/jfreechart/">JFreeChart</a> charting library, as well as several other Java and Clojure libraries.
+
+The motivation for creating Incanter is to provide a JVM-based statistical computing and graphics platform with R-like semantics and interactive-programming environment. Running on the JVM provides access to the large number of existing Java libraries for data access, data processing, and presentation.  Clojure’s seamless integration with Java makes leveraging these libraries much simpler than is possible in R, and Incanter’s R-like semantics makes statistical programming much simpler than is possible in pure Java.
+
+Motivation for a Lisp-based R-like statistical environment can be found in the paper <i><a href="http://www.stat.auckland.ac.nz/~ihaka/downloads/Compstat-2008.pdf">Back to the Future: Lisp as a Base for a Statistical Computing System by Ihaka and Lang (2008)</a></i>. Incanter is also inspired by the now dormant Lisp-Stat (see the special volume in the Journal of Statistical Software on <a href="http://www.jstatsoft.org/v13">Lisp-Stat: Past, Present, and Future</a> from 2005).
+
+Motivation for a JVM-based Lisp can be found at the <i><a href="http://clojure.org">Clojure website</a></u></i>, and screencasts of several excellent Clojure talks by the language’s creator, Rich Hickey, can be found at <i> <a href="http://www.youtube.com/user/ClojureTV">Clojure TV</a></i>.
+
+
+<a name="clojure"></a>
+
+h2. Getting started with Clojure
+
+For a great introduction to programming in Clojure, read "Clojure - Functional Programming for the JVM.":http://ociweb.com/mark/clojure/article.html by R. Mark Volkmann. For an even more extensive introduction, get one of the books on Clojure "Programming Clojure, 2ed":http://pragprog.com/book/shcloj2/programming-clojure by Stuart Halloway and Aaron Bedra, <a href="http://www.manning.com/fogus/">"The Joy of Clojure"</a> by Michael Fogus and Chris Houser, <a href="http://www.manning.com/rathore/">"Clojure in Action"</a> by Amit Rathore, <a href="http://apress.com/book/view/1430272317">"Practical Clojure"</a> by Luke VanderHart and Stuart Sierra.
+
+*Other Clojure resources*
+
+* "Clojure website":http://clojure.org
+* "Getting Started with Clojure":http://dev.clojure.org/display/doc/Getting+Started
+* "Clojure Google group":http://groups.google.com/group/ClojureTV
+* "clojure":https://www.youtube.com/user/ClojureTV
+* "Disclojure blog":http://disclojure.org/
+* "Full Disclojure screencasts":http://vimeo.com/channels/fulldisclojure
+
+
+<a name="getstarted"></a>
+
+h2. Getting started with Incanter
+
+h4. Include in Clojure project
+
+Include all incanter modules at once in your <code>project.clj</code>:
+
+bc[clojure]. :dependencies [[org.clojure/clojure "1.6.0"]
+               [incanter "1.5.5"]]
+
+
+Or only the modules you need:
+
+bc. :dependencies [[org.clojure/clojure "1.6.0"]
+               [incanter/incanter-core "1.5.5"]
+               [incanter/incanter-charts "1.5.5"]]
+
+Start repl:
+
+bc. lein repl
+
+
+h4. Use standalone app
+
+Start by visiting the <a href="http://incanter.org">Incanter website</a> for an overview, checkout the <a href="http://data-sorcery.org/contents/">documentation page</a> for a listing of HOW-TOs and examples, and then download either an <a href="http://incanter.org/downloads/">Incanter executable</a> or a pre-built version of <a href="http://incanter.org/downloads/">the latest build of Incanter</a>, which includes all the necessary dependencies, and unpack the file (if you would like to build it from source, read <a href="#build">Building Incanter</a>).  You also might need to install libgfortran3 library that is required for <a href="http://mikiobraun.github.io/jblas/">jblas</a> that is powering matrix operations (see <a href="https://github.com/mikiobraun/jblas/wiki/Missing-Libraries">jblas wiki</a> for more details).
+
+Start the Clojure REPL (aka the shell) by double-clicking on the downloaded executable or, if you downloaded the pre-built distribution, running one of the scripts in the Incanter directory: @script/repl@ or @script\repl.bat@ on Windows.
+
+h4. Usage
+
+From the Clojure REPL, load the Incanter libraries: 
+<pre><code>user=> (use '(incanter core stats charts io))</code></pre>
+
+Try an example: sample 1,000 values from a standard-normal distribution and view a histogram: 
+<pre><code>user=> (view (histogram (sample-normal 1000)))</code></pre>
+<img src="http://incanter.org/images/examples/newtheme/hist-norm.png" />
+
+Try another simple example, a plot of the sine function over the range -4 to 4:
+
+bc. user=> (def my-plot (function-plot sin -10 10))
+user=> (view my-plot)
+
+<img src="http://incanter.org/images/examples/newtheme/xy-sin.png" />
+
+You can save plots into a png file:
+<pre><code>user=> (save my-plot "plot.png")</code></pre>
+
+Incanter can save charts into pdf or svg files. Check <code>incanter.pdf/save-pdf</code> and <code>incanter.svg/save-svg</code> functions.
+
+Let's play with some data know. We'll look at London weather for 2012:
+
+bc.. ; function that returns dataset containing weather in London for given month in 2012
+(defn weather-for-month [month]
+  (-> (format "http://www.wunderground.com/history/airport/EGLL/2012/%d/10/MonthlyHistory.html?format=1" month)
+      (read-dataset :header true)))
+
+; get weather data for each month in 2012 and build single dataset
+(def data (->> (range 1 13) (map weather-for-month) (apply conj-rows)))
+
+; view dataset in a table and view histogram of mean temperature
+(view data)
+(view (histogram "Mean TemperatureC" :nbins 100 :data data))
+
+; function that given month "2012-9-20" extracts month and returns 9
+(defn month [date] (Integer/parseInt (second (.split date "-"))))
+
+; dataset that contains 2 columns: month and mean temperature for that month
+(def grouped-by-month
+  (->> (map (fn [date temp] {:month (month date) :temp temp})
+            ($ "GMT" data) ($ "Mean TemperatureC" data))
+       to-dataset
+       ($rollup :mean :temp :month)
+       ($order :month :asc)))
+
+; view line chart that shows that August was the warmest month
+(view (line-chart :month :temp :data grouped-by-month))
+
+p. The online documentation for most Incanter functions contain usage examples. The documentation can be viewed using Clojure's @doc@ function. For example, to view the documentation and usage examples for the @linear-model@ function, call @(doc linear-model)@ from the Clojure shell. Use @(find-doc "search term")@ to search the online documentation from the Clojure shell. The API documentation can also be found at <a href="http://liebke.github.com/incanter">http://liebke.github.com/incanter</a>.
+
+The <a href="http://www.amazon.com/gp/product/178216264X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=178216264X&linkCode=as2&tag=statisprograw-20">Clojure Data Analysis Cookbook</a> (published by Packt Publishing) contains several chapters dedicated to Incanter, including work with datasets, charting, etc.  You can read the <a href="https://github.com/incanter/incanter/blob/master/docs/9781782162643_Chapter%206.pdf?raw=true">sample chapter</a> that describes Incanter's datasets.
+
+There is dedicated mailing list for discussions about Incater. It's hosted on <a href="http://groups.google.com/group/incanter">Google Groups</a>.
+
+*More Incanter examples*
+
+* See the <a href="http://data-sorcery.org">Data-Sorcery blog</a>
+* See the <a href="http://data-sorcery.org/contents">Documentation table of contents</a>
+
+<a name="docs"></a>
+
+h2. Documentation
+
+The following documentation covers the Incanter and Clojure APIs and the APIs of the underlying java libraries.
+
+*Incanter documentation*
+* "Doc Index":http://data-sorcery.org/contents/
+* "API":http://liebke.github.com/incanter
+
+
+*Related API documentation*
+* "Clojure API":http://clojure.github.com/clojure/
+* "Parallel Colt Java API":http://incanter.org/docs/parallelcolt/api/
+* "JFreeChart Java API":http://www.jfree.org/jfreechart/api/javadoc/index.html
+* "Processing API":http://www.processing.org/reference/
+
+
+<a name="build"></a>
+
+h2. Building Incanter
+
+To build and test Incanter, you will need to have <a href="https://github.com/technomancy/leiningen/">Leiningen</a> and <a href="http://git-scm.com/">git</a> installed:
+
+1. Clone the repository with git: @git clone git://github.com/incanter/incanter.git@
+
+2. Install Leiningen (version 2.x)
+  a. Download the lein script: @wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein@
+     (use <a href="https://github.com/technomancy/leiningen/raw/preview/bin/lein.bat">lein.bat</a> on Windows)
+  b. Place it on your path and chmod it to be executable: @chmod +x lein@
+  c. Run: @lein self-install@
+
+3. Execute @lein sub install@ (or @lein modules install@) staying in the incanter directory - this will download all necessary dependencies, compile & install all Incanter's modules into local Maven repository.
+
+4. Start a REPL: @lein repl@ (it also starts nRepl server), or start a Swank server: @lein ritz 4005@
+
+Other tasks:
+* If you want to run the tests for each of Incanter's modules, use @lein sub test@ 
+* Each of Incanter's modules are independent Leiningen projects. Just cd into modules/incanter-* and use Leiningen to build each one as a stand-alone library.
+* @lein sub install@ (or @lein modules install@) uses Leiningen to build all the modules and install them in your local ~/.m2 repository.
+
+
+<a name="depends"></a>
+
+h2. Incanter dependencies
+
+* "Clojure":https://github.com/clojure/clojure
+* "Parallel Colt":http://sites.google.com/site/piotrwendykier/software/parallelcolt
+** "Netlib-Java":http://code.google.com/p/netlib-java/ (included with Parallel Colt)
+* "Clatrix":https://github.com/tel/clatrix
+** "jblas":https://github.com/mikiobraun/jblas
+* "JFreeChart":http://www.jfree.org/jfreechart/
+** "JCommon":http://www.jfree.org/jcommon/ (included with JFreeChart)
+** "GnuJaxp":http://www.gnu.org/software/classpathx/jaxp/jaxp.html (included with JFreeChart)
+* "OpenCSV":http://opencsv.sourceforge.net/
+* "iText":http://itextpdf.com/
+* "Congomongo":https://github.com/aboekhoff/congomongo
+* "JLaTeXMath":http://forge.scilab.org/index.php/p/jlatexmath/
+* "Apache POI":http://poi.apache.org/
+* "JLine":http://jline.sourceforge.net/
+* "ClojureQL":http://clojureql.org/
+* "Batik SVG Toolkit":https://xmlgraphics.apache.org/batik/
+
